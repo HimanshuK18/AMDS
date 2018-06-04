@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href="/">
+    <title>ArcelorMittal Downstream Solutions </title>
+    <!--Important Libraby JS files-->
+    <script src="/lib/jquery3.1.0.min.js"></script>
+    <script src="/lib/bootstrap.min.js"></script>
+    <script src="/lib/angular.min.js"></script>
+    <script src="/lib/angular-route.min.js"></script>
+    <script src="/lib/ngStorage.js"></script>
+    <script src="/lib/loading-bar.js"></script>
+    <script src="/lib/qrcode.js"></script>
+    <!--Important Style Sheets-->
+    <link rel="stylesheet" href="CSS/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="CSS/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="CSS/mining.css">
+    <link rel="stylesheet" href="CSS/font-awesome.min.css">
+
+    <!--Important Mining Application JS files-->
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/IndexController.js"></script>
+    <script src="/scripts/services.js"></script>
+    <script src="/scripts/SigninController.js"></script>
+    <script src="/scripts/HomeMillController.js"></script>
+    <script src="/scripts/LogisticsCompanyTwoController.js"></script>
+    <script src="/scripts/LogisticsCompanyThreeController.js"></script>
+    <script src="/scripts/servicecenterController.js"></script>
+
+    <script src="/scripts/logisticsoneController.js"></script>
+    <script src="/scripts/warehouseController.js"></script>
+    <script src="/scripts/CustomerController.js"></script>
+    <script src="/scripts/HomeOrderController.js"></script>
+
+    <style type="text/css">
+        .red {
+            color: red;
+        }
+
+        .black {
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body ng-app="MiningUseCase" ng-controller="IndexController" id="MiningAppBody">
+
+    <div class="col-lg-12 col-md-12" style="text-align: center;font-weight: bold;color: #FFF; text-shadow: 0 0;margin-right:1%;margin-top: 1%;border-bottom:8px solid #ff3700">
+        <div class="col-lg-2 col-md-2 image"></div>​
+        <div class=" col-lg-7 col-md-7">
+            <h1 style="color:black;margin-left:50px;">ArcelorMittal Downstream Solutions </h1>
+        </div>
+        <div id="useDD" class="col-lg-3 col-md-3" style="cursor:pointer;margin-left:10px;">
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                <span style="color:black;opacity:0.8"> {{FullName}}</span>
+                <li class="dropdown" style="cursor:pointer;">
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="color:black;opacity:0.8">
+                        <i class="fa fa-user fa-fw"></i>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user" style="background-color:rgba(138,65,23,0.1);z-index:10;">
+                        <li ng-click="LogoutUser()" style="cursor:pointer;">
+                            <a style="font-weight: bold;color:black;">
+                                <i class="fa fa-sign-out fa-fw" style="font-weight: bold;color:black;opacity:0.9"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12" style="padding-top:1%;margin-top:3px;border-top:5px double black">
+        <nav class="navbar navbar-default navbar-static-top" ng-show="showflag" role="navigation" style="margin-bottom: 0; border-bottom:0px solid #561D10;z-index:0;">
+            <div class="col-lg-12 col-md-12 navbar-header" style="background-color:white;">
+                <span id="titletop" class="navbar-brand" style="color:black;opacity:0.9;padding-left:40%">
+                    <strong>Purchase Order Info Master</strong>
+                </span>
+            </div>
+            <div class="sidebar" role="navigation">
+                <ul class="nav" id="side-menu">
+                    <li id="lisPurchaseOrder" style="background-color:white;border-bottom:5px solid #ff3700;margin-top:5px">
+                        <a href="#/homemill" id="hypPrchOrds" style="font-weight: bold;color:black;opacity:0.8">
+                            <i class="glyphicon glyphicon-tasks" style="font-weight: bold;color:black;opacity:0.8"></i> Orders</a>
+                    </li>
+
+                    <li id="logistics1" style="background-color:white;border-bottom:5px solid #ff3700;margin-top:5px">
+                        <a href="#/lc1" id="hypPrchOrds" style="font-weight: bold;color:black;opacity:0.8">
+                            <i class="glyphicon glyphicon-tasks" style="font-weight: bold;color:black;opacity:0.8"></i> Warehouse Logistics</a>
+                    </li>
+                    <li id="logistics2" style="background-color:white;border-bottom:5px solid #ff3700;margin-top:5px">
+                        <a href="#/lc2" id="hypPrchOrds" style="font-weight: bold;color:black;opacity:0.8">
+                            <i class="glyphicon glyphicon-tasks" style="font-weight: bold;color:black;opacity:0.8"></i> Service Center Logistics</a>
+                    </li>
+                    <li id="logistics3" style="background-color:white;border-bottom:5px solid #ff3700;margin-top:5px">
+                        <a href="#/lc3" id="hypPrchOrds" style="font-weight: bold;color:black;opacity:0.8">
+                            <i class="glyphicon glyphicon-tasks" style="font-weight: bold;color:black;opacity:0.8"></i> Customer Logistics</a>
+                    </li>
+                    <li id="lisViewPayments" style="background-color:white;border-bottom:5px solid #ff3700;margin-top:5px">
+                        <a href="#/viewHelp" id="help" style="font-weight: bold;color:black;opacity:0.8">
+                            <span class="glyphicon glyphicon-hand-up" style="font-weight: bold;color:black;opacity:0.8"></span> Help</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="loading" id="divloading">
+            <div class="loading-spinner-large" style="display: none;"></div>
+            <div class="loading-spinner-small" style="display: none;"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Alert</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{message}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="page-wrapper" ng-view="" class="viewcontent">
+    </div>
+    <!--<div id="footer" class="footers" >
+            Copyright 2018 Accenture.All rights reserved.
+        </div>-->
+    </div>
+</body>
+
+</html>

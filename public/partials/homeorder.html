@@ -1,0 +1,266 @@
+<div class="container" ng-controller="HomeOrderController">
+    <div class="col-lg-12" id="divGrid">
+        <form id="formgb">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search Orders" ng-model="searchgb">
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered table-responsive table-hover">
+            <thead class="thead-inverse">
+                <tr>
+                    <th class="col-lg-3 tableclass">
+                        <a ng-click="sortTypeC = 'orderid'; sortReverseC = !sortReverseC;" style="color:white;cursor:pointer;">
+                            Order ID
+                            <span ng-show="sortTypeC == 'orderid' && !sortReverseC" class="glyphicon glyphicon-arrow-down"></span>
+                            <span ng-show="sortTypeC == 'orderid' && sortReverseC" class="glyphicon glyphicon-arrow-up"></span>
+                        </a>
+                    </th>
+                    <th class="col-lg-3 tableclass">
+                        <a ng-click="sortTypeC = 'OrderType'; sortReverseC = !sortReverseC;" style="color:white;cursor:pointer;">
+                            Order Type
+                            <span ng-show="sortTypeC == 'OrderType' && !sortReverseC" class="glyphicon glyphicon-arrow-down"></span>
+                            <span ng-show="sortTypeC == 'OrderType' && sortReverseC" class="glyphicon glyphicon-arrow-up"></span>
+                    </th>
+                    <th class="col-lg-3 tableclass">
+                        <a ng-click="sortTypeC = 'productname'; sortReverseC = !sortReverseC;" style="color:white;cursor:pointer;">
+                            Product Name
+                            <span ng-show="sortTypeC == 'productname' && !sortReverseC" class="glyphicon glyphicon-arrow-down"></span>
+                            <span ng-show="sortTypeC == 'productname' && sortReverseC" class="glyphicon glyphicon-arrow-up"></span>
+                    </th>
+                    <th class="col-lg-3 tableclass">
+                            <a ng-click="sortTypeC = 'productid'; sortReverseC = !sortReverseC;" style="color:white;cursor:pointer;">
+                                    Product ID
+                                    <span ng-show="sortTypeC == 'productid' && !sortReverseC" class="glyphicon glyphicon-arrow-down"></span>
+                                    <span ng-show="sortTypeC == 'productid' && sortReverseC" class="glyphicon glyphicon-arrow-up"></span>
+                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="Order in OrderList | orderBy:sortTypeC:sortReverseC | filter:searchgb" style="cursor:pointer;">
+                    <td style="padding:4px;" ng-click="ShowOrder(Order.address)">{{Order.orderid}}</td>
+                    <td style="padding:4px;" ng-click="ShowOrder(Order.address)">{{Order.OrderType}}</td>
+                    <td style="padding:4px;" ng-click="ShowOrder(Order.address)">{{Order.productname}}</td>
+                    <td style="padding:4px;" ng-click="ShowOrder(Order.address)">{{Order.productid}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="text-align: center;">
+            <button class="login-button" ng-click="CreateOrder()">Create</button>
+        </div>
+    </div>
+    <div class="col-lg-12" id="divDetails">
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Order ID:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <input class="form-input" name="orderid" id="orderid" ng-model="POOrder.orderid" type="text" required disabled=true  />
+                <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Order Type:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <select ng-change="OrderTypeSelected()" class="form-input" style="font-size: 13px !important;padding:0px;" ng-model="POOrder.OrderType" name="OrderType" required>
+                    <option value="Standard Product">Standard Product</option>
+                    <option value="Custom Product">Custom Product</option>
+                </select>
+                <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Order Details:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <input class="form-input" name="orderdetails" id="millteatreportnumber" ng-model="POOrder.orderdetails" type="text" required />
+                <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product ID:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <input class="form-input" name="productid" id="productid" ng-model="POOrder.productid" type="text" required />
+                <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product Name:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <input class="form-input" name="productname" id="productname" ng-model="POOrder.productname" type="text" required />
+                <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product Grade:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <input class="form-input" name="productgrade" id="Discription" ng-model="POOrder.productgrade" type="text" required />
+                <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Quantity:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <input class="form-input" name="quantity" id="quantity" ng-model="POOrder.quantity" type="text" required />
+                <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+            </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 lableclass">
+                <div class="col-lg-5 col-md-5">
+                    <span class="label-control">Warehouse Details:</span>
+                </div>
+                <div class="col-lg-7 col-md-7">
+                    <select class="form-input" style="font-size: 13px !important;padding:0px;" ng-model="POOrder.warehouse" name="warehouse"
+                        required>
+                        <option ng-repeat="option in customers |filter: 'Warehouse'" value="{{option._id}}">{{option.fullname}}</option>
+                    </select>
+                    <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 lableclass">
+                    <div class="col-lg-5 col-md-5">
+                        <span class="label-control">Service Center Details:</span>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <select id="ddlsevicecenter" class="form-input" style="font-size: 13px !important;padding:0px;" ng-model="POOrder.servicecenter" name="servicecenter"
+                            required>
+                            <option ng-repeat="option in customers |filter: 'Service Center'" value="{{option._id}}">{{option.fullname}}</option>
+                        </select>
+                        <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+                    </div>
+                </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Customer Details:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <select class="form-input" style="font-size: 13px !important;padding:0px;" ng-model="POOrder.PurchaserName" name="PurchaserName"
+                    required>
+                    <option ng-repeat="option in customers |filter: 'Customer'" value="{{option._id}}">{{option.fullname}}</option>
+                </select>
+                <span style="color:red;vertical-align: top;font-size: 17px;"> *</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12" style="margin-top:30px;margin-left:40%;">
+            <div class="col-lg-12 col-md-12">
+                <button class="login-button" ng-click="SaveOrder()" style="width:120px;">Save</button>
+                <button class="login-button" ng-click="CancelOrder()" style="width:120px;margin-left:20px;">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-12" id="divShowDetails">
+
+        <div id="qrplaceHolder" class="lableclass" style="height:100%;width: 100%;text-align: center;"></div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Order ID:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.orderid"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Order Type:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.OrderType"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Order Details:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.orderdetails"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product ID:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.productid"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product Name:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.productname"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product Grade:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.productgrade"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+                <div class="col-lg-5 col-md-5">
+                    <span class="label-control">Quantity:</span>
+                </div>
+                <div class="col-lg-7 col-md-7">
+                    <span ng-bind="OrderItem.quantity"></span>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 lableclass">
+                    <div class="col-lg-5 col-md-5">
+                        <span class="label-control">Service Center:</span>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <span ng-bind="OrderItem.servicecenter"></span>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 lableclass">
+                        <div class="col-lg-5 col-md-5">
+                            <span class="label-control">Warehouse Center:</span>
+                        </div>
+                        <div class="col-lg-7 col-md-7">
+                            <span ng-bind="OrderItem.warehousedetails"></span>
+                        </div>
+                    </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Customer Name:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.PurchaserName"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Order Tracking ID:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.Address"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12" style="margin-top:30px;margin-left:40%;">
+            <div class="col-lg-12 col-md-12">
+                <button class="login-button" ng-click="CloseOrder()" style="width:120px;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

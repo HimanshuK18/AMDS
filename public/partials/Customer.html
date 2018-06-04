@@ -1,0 +1,138 @@
+<div class="container" ng-controller="CustomerController">
+    <div class="col-lg-12" id="divGrid">
+        <form id="formgb">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search Orders" ng-model="searchgb">
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered table-responsive table-hover">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="col-lg-3 tableclass">
+                            <a ng-click="sortTypeC = 'orderid'; sortReverseC = !sortReverseC;" style="color:white;cursor:pointer;">
+                                Order ID
+                                <span ng-show="sortTypeC == 'orderid' && !sortReverseC" class="glyphicon glyphicon-arrow-down"></span>
+                                <span ng-show="sortTypeC == 'orderid' && sortReverseC" class="glyphicon glyphicon-arrow-up"></span>
+                            </a>
+                        </th>
+                        <th class="col-lg-3 tableclass">
+                            <a ng-click="sortTypeC = 'OrderType'; sortReverseC = !sortReverseC;" style="color:white;cursor:pointer;">
+                                Order Type
+                                <span ng-show="sortTypeC == 'OrderType' && !sortReverseC" class="glyphicon glyphicon-arrow-down"></span>
+                                <span ng-show="sortTypeC == 'OrderType' && sortReverseC" class="glyphicon glyphicon-arrow-up"></span>
+                        </th>
+                        <th class="col-lg-3 tableclass">
+                            <a ng-click="sortTypeC = 'productname'; sortReverseC = !sortReverseC;" style="color:white;cursor:pointer;">
+                                Product Name
+                                <span ng-show="sortTypeC == 'productname' && !sortReverseC" class="glyphicon glyphicon-arrow-down"></span>
+                                <span ng-show="sortTypeC == 'productname' && sortReverseC" class="glyphicon glyphicon-arrow-up"></span>
+                        </th>
+                        <th class="col-lg-2 tableclass">
+                            <a ng-click="sortTypeC = 'productid'; sortReverseC = !sortReverseC;" style="color:white;cursor:pointer;">
+                                Product ID
+                                <span ng-show="sortTypeC == 'productid' && !sortReverseC" class="glyphicon glyphicon-arrow-down"></span>
+                                <span ng-show="sortTypeC == 'productid' && sortReverseC" class="glyphicon glyphicon-arrow-up"></span>
+    
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Order in OrderList | orderBy:sortTypeC:sortReverseC | filter:searchgb" style="cursor:pointer;">
+                        <td ng-click="ShowOrder(Order.address,Order._id)" style="padding:4px;">{{Order.orderid}}</td>
+                        <td ng-click="ShowOrder(Order.address,Order._id)" style="padding:4px;">{{Order.OrderType}}</td>
+                        <td ng-click="ShowOrder(Order.address,Order._id)" style="padding:4px;">{{Order.productname}}</td>
+                        <td ng-click="ShowOrder(Order.address,Order._id)" style="padding:4px;">{{Order.productid}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    <div class="col-lg-12" id="divShowDetails">
+
+        <div id="qrplaceHolder" class="lableclass" style="height:100%;width: 100%;text-align: center;"></div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Heat Number:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.heatnumber"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Mill Test Report Number:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.millteatreportnumber"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Order Details:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.orderdetails"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product Name:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.productname"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Quantity:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.quantity"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product Specification:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.productspecification"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product Grade:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.productgrade"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Product ID:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.productid"></span>
+            </div>
+        </div>
+        
+        <div class="col-lg-12 col-md-12 lableclass">
+            <div class="col-lg-5 col-md-5">
+                <span class="label-control">Order Tracking ID:</span>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <span ng-bind="OrderItem.Address"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12" style="margin-top:30px;margin-left:40%;">
+            <div class="col-lg-12 col-md-12">
+                <button class="login-button" ng-click="CloseOrder()" style="width:120px;">Close</button>
+
+                <button class="login-button" ng-click="AcceptOrder()" ng-show="OrderItem.status == 'With Customer'" style="width:120px;">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>
